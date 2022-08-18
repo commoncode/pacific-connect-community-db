@@ -50,6 +50,17 @@ class PersonListView(ListView):
         # Return the queryset now that we have filtered it (if we need to)
         return queryset
 
+    def get_context_data(self, **kwargs):
+        # Get the default context that would be generated
+        context = super().get_context_data(**kwargs)
+
+        # Get the search text and add it to the context
+        search_text = self.request.GET.get("search")
+        context["search_text"] = search_text
+
+        # Return our new context
+        return context
+
 
 class PersonDetailView(DetailView):
     model = Person
