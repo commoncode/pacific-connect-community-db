@@ -6,7 +6,7 @@ from .models import Person
 
 # FUNCTION BASED VIEWS
 
-# Searching the first name and last name fields
+# Searching the first name and last name fields with text in the search box
 def list_persons_with_template(request):
     search_text = request.GET.get("search")
 
@@ -16,7 +16,7 @@ def list_persons_with_template(request):
             last_name__icontains=search_text
         )
         persons = persons.filter(search_filters)
-    context = {"object_list": persons}
+    context = {"object_list": persons, "search_text": search_text}
     return render(request, "community_db/person_list_in_base.html", context)
 
 
