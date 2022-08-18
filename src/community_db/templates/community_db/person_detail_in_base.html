@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <br>
+    <a href="{% url 'fbv-person-list' %}">Back to list</a>
+    <br>
+    This is the detail of a person:
+    <ul>
+        <li>First Name: {{ object.first_name }}</li>
+        <li>Last Name: {{ object.last_name }}</li>
+        <li>Country: {{ object.country }}</li>
+        <li>Phone number: {{ object.mobile_number }}</li>
+    </ul>
+{% endblock %}
