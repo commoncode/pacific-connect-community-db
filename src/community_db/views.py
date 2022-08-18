@@ -2,21 +2,25 @@ from django.db import models
 from django.shortcuts import render
 from django.views.generic import DetailView, ListView
 
+from .forms import QuickSearchForm
 from .models import Person
 
 # FUNCTION BASED VIEWS
 
-# Searching the first name and last name fields with text in the search box
+# Searching the first name and last name fields using a Django form
 def list_persons_with_template(request):
-    search_text = request.GET.get("search")
+    form = QuickSearchForm(request.GET)
 
     persons = Person.objects.all()
-    if search_text:
-        search_filters = models.Q(first_name__icontains=search_text) | models.Q(
-            last_name__icontains=search_text
-        )
-        persons = persons.filter(search_filters)
-    context = {"object_list": persons, "search_text": search_text}
+    search_text = ""
+    if form.is_valid():
+        search_text = form.cleaned_data["search"]
+        if search_text:
+            search_filters = models.Q(first_name__icontains=search_text) | models.Q(
+                last_name__icontains=search_text
+            )
+            persons = persons.filter(search_filters)
+    context = {"object_list": persons, "search_text": search_text, "form": form}
     return render(request, "community_db/person_list_in_base.html", context)
 
 
