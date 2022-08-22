@@ -1,7 +1,10 @@
 from django.db import models
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
+from .forms import PersonForm
 from .models import Person
 
 # FUNCTION BASED VIEWS
@@ -24,6 +27,30 @@ def detail_person_with_template(request, pk):
     person = get_object_or_404(Person, id=pk)
     context = {"object": person}
     return render(request, "community_db/person_detail_in_base.html", context)
+
+
+def edit_person_with_template(request, pk):
+    person = get_object_or_404(Person, id=pk)
+    if request.POST:
+        form = PersonForm(request.POST)
+        if form.is_valid():
+            person.first_name = form.cleaned_data["first_name"]
+            person.last_name = form.cleaned_data["last_name"]
+            person.country = form.cleaned_data["country"]
+            person.mobile_number = form.cleaned_data["mobile_number"]
+            person.save()
+            return HttpResponseRedirect(reverse("fbv-person-detail", args=[person.id]))
+    else:
+        form = PersonForm(
+            {
+                "first_name": person.first_name,
+                "last_name": person.last_name,
+                "country": person.country,
+                "mobile_number": person.mobile_number,
+            }
+        )
+    context = {"object": person, "form": form}
+    return render(request, "community_db/person_form_in_base.html", context)
 
 
 # CLASS BASED VIEWS

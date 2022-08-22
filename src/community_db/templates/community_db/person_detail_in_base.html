@@ -11,4 +11,5 @@
         <li>Country: {{ object.country }}</li>
         <li>Phone number: {{ object.mobile_number }}</li>
     </ul>
+    <a href="{% url 'fbv-person-edit' object.id %}">edit</a>
 {% endblock %}
