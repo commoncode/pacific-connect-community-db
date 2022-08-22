@@ -1,5 +1,5 @@
 from django.db import models
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic import DetailView, ListView
 
 from .models import Person
@@ -21,7 +21,7 @@ def list_persons_with_template(request):
 
 
 def detail_person_with_template(request, pk):
-    person = Person.objects.get(id=pk)
+    person = get_object_or_404(Person, id=pk)
     context = {"object": person}
     return render(request, "community_db/person_detail_in_base.html", context)
 
