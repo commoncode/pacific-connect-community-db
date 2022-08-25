@@ -2,286 +2,285 @@ from django.db import models
 
 
 class Person(models.Model):
-    COUNTRIES = [
-        ("Afghanistan", "Afghanistan"),
-        ("Albania", "Albania"),
-        ("Algeria", "Algeria"),
-        ("American Samoa", "American Samoa"),
-        ("Andorra", "Andorra"),
-        ("Angola", "Angola"),
-        ("Anguilla", "Anguilla"),
-        ("Antarctica", "Antarctica"),
-        ("Antigua and Barbuda", "Antigua and Barbuda"),
-        ("Argentina", "Argentina"),
-        ("Armenia", "Armenia"),
-        ("Aruba", "Aruba"),
-        ("Australia", "Australia"),
-        ("Austria", "Austria"),
-        ("Azerbaijan", "Azerbaijan"),
-        ("Bahamas (the)", "Bahamas (the)"),
-        ("Bahrain", "Bahrain"),
-        ("Bangladesh", "Bangladesh"),
-        ("Barbados", "Barbados"),
-        ("Belarus", "Belarus"),
-        ("Belgium", "Belgium"),
-        ("Belize", "Belize"),
-        ("Benin", "Benin"),
-        ("Bermuda", "Bermuda"),
-        ("Bhutan", "Bhutan"),
-        ("Bolivia (Plurinational State of)", "Bolivia (Plurinational State of)"),
-        ("Bonaire, Sint Eustatius and Saba", "Bonaire, Sint Eustatius and Saba"),
-        ("Bosnia and Herzegovina", "Bosnia and Herzegovina"),
-        ("Botswana", "Botswana"),
-        ("Bouvet Island", "Bouvet Island"),
-        ("Brazil", "Brazil"),
-        (
+    class Countries(models.TextChoices):
+        AF = ("Afghanistan", "Afghanistan")
+        AL = ("Albania", "Albania")
+        DZ = ("Algeria", "Algeria")
+        AS = ("American Samoa", "American Samoa")
+        AD = ("Andorra", "Andorra")
+        AO = ("Angola", "Angola")
+        AI = ("Anguilla", "Anguilla")
+        AQ = ("Antarctica", "Antarctica")
+        AG = ("Antigua and Barbuda", "Antigua and Barbuda")
+        AR = ("Argentina", "Argentina")
+        AM = ("Armenia", "Armenia")
+        AW = ("Aruba", "Aruba")
+        AU = ("Australia", "Australia")
+        AT = ("Austria", "Austria")
+        AZ = ("Azerbaijan", "Azerbaijan")
+        BS = ("Bahamas (the)", "Bahamas (the)")
+        BH = ("Bahrain", "Bahrain")
+        BD = ("Bangladesh", "Bangladesh")
+        BB = ("Barbados", "Barbados")
+        BY = ("Belarus", "Belarus")
+        BE = ("Belgium", "Belgium")
+        BZ = ("Belize", "Belize")
+        BJ = ("Benin", "Benin")
+        BM = ("Bermuda", "Bermuda")
+        BT = ("Bhutan", "Bhutan")
+        BO = ("Bolivia (Plurinational State of)", "Bolivia (Plurinational State of)")
+        BQ = ("Bonaire, Sint Eustatius and Saba", "Bonaire, Sint Eustatius and Saba")
+        BA = ("Bosnia and Herzegovina", "Bosnia and Herzegovina")
+        BW = ("Botswana", "Botswana")
+        BV = ("Bouvet Island", "Bouvet Island")
+        BR = ("Brazil", "Brazil")
+        IO = (
             "British Indian Ocean Territory (the)",
             "British Indian Ocean Territory (the)",
-        ),
-        ("Brunei Darussalam", "Brunei Darussalam"),
-        ("Bulgaria", "Bulgaria"),
-        ("Burkina Faso", "Burkina Faso"),
-        ("Burundi", "Burundi"),
-        ("Cabo Verde", "Cabo Verde"),
-        ("Cambodia", "Cambodia"),
-        ("Cameroon", "Cameroon"),
-        ("Canada", "Canada"),
-        ("Cayman Islands (the)", "Cayman Islands (the)"),
-        ("Central African Republic (the)", "Central African Republic (the)"),
-        ("Chad", "Chad"),
-        ("Chile", "Chile"),
-        ("China", "China"),
-        ("Christmas Island", "Christmas Island"),
-        ("Cocos (Keeling) Islands (the)", "Cocos (Keeling) Islands (the)"),
-        ("Colombia", "Colombia"),
-        ("Comoros (the)", "Comoros (the)"),
-        (
+        )
+        BN = ("Brunei Darussalam", "Brunei Darussalam")
+        BG = ("Bulgaria", "Bulgaria")
+        BF = ("Burkina Faso", "Burkina Faso")
+        BI = ("Burundi", "Burundi")
+        CV = ("Cabo Verde", "Cabo Verde")
+        KH = ("Cambodia", "Cambodia")
+        CM = ("Cameroon", "Cameroon")
+        CA = ("Canada", "Canada")
+        KY = ("Cayman Islands (the)", "Cayman Islands (the)")
+        CF = ("Central African Republic (the)", "Central African Republic (the)")
+        TD = ("Chad", "Chad")
+        CL = ("Chile", "Chile")
+        CN = ("China", "China")
+        CX = ("Christmas Island", "Christmas Island")
+        CC = ("Cocos (Keeling) Islands (the)", "Cocos (Keeling) Islands (the)")
+        CO = ("Colombia", "Colombia")
+        KM = ("Comoros (the)", "Comoros (the)")
+        CD = (
             "Congo (the Democratic Republic of the)",
             "Congo (the Democratic Republic of the)",
-        ),
-        ("Congo (the)", "Congo (the)"),
-        ("Cook Islands (the)", "Cook Islands (the)"),
-        ("Costa Rica", "Costa Rica"),
-        ("Croatia", "Croatia"),
-        ("Cuba", "Cuba"),
-        ("Curaçao", "Curaçao"),
-        ("Cyprus", "Cyprus"),
-        ("Czechia", "Czechia"),
-        ("Côte d'Ivoire", "Côte d'Ivoire"),
-        ("Denmark", "Denmark"),
-        ("Djibouti", "Djibouti"),
-        ("Dominica", "Dominica"),
-        ("Dominican Republic (the)", "Dominican Republic (the)"),
-        ("Ecuador", "Ecuador"),
-        ("Egypt", "Egypt"),
-        ("El Salvador", "El Salvador"),
-        ("Equatorial Guinea", "Equatorial Guinea"),
-        ("Eritrea", "Eritrea"),
-        ("Estonia", "Estonia"),
-        ("Eswatini", "Eswatini"),
-        ("Ethiopia", "Ethiopia"),
-        ("Falkland Islands (the) [Malvinas]", "Falkland Islands (the) [Malvinas]"),
-        ("Faroe Islands (the)", "Faroe Islands (the)"),
-        ("Fiji", "Fiji"),
-        ("Finland", "Finland"),
-        ("France", "France"),
-        ("French Guiana", "French Guiana"),
-        ("French Polynesia", "French Polynesia"),
-        ("French Southern Territories (the)", "French Southern Territories (the)"),
-        ("Gabon", "Gabon"),
-        ("Gambia (the)", "Gambia (the)"),
-        ("Georgia", "Georgia"),
-        ("Germany", "Germany"),
-        ("Ghana", "Ghana"),
-        ("Gibraltar", "Gibraltar"),
-        ("Greece", "Greece"),
-        ("Greenland", "Greenland"),
-        ("Grenada", "Grenada"),
-        ("Guadeloupe", "Guadeloupe"),
-        ("Guam", "Guam"),
-        ("Guatemala", "Guatemala"),
-        ("Guernsey", "Guernsey"),
-        ("Guinea", "Guinea"),
-        ("Guinea-Bissau", "Guinea-Bissau"),
-        ("Guyana", "Guyana"),
-        ("Haiti", "Haiti"),
-        ("Heard Island and McDonald Islands", "Heard Island and McDonald Islands"),
-        ("Holy See (the)", "Holy See (the)"),
-        ("Honduras", "Honduras"),
-        ("Hong Kong", "Hong Kong"),
-        ("Hungary", "Hungary"),
-        ("Iceland", "Iceland"),
-        ("India", "India"),
-        ("Indonesia", "Indonesia"),
-        ("Iran (Islamic Republic of)", "Iran (Islamic Republic of)"),
-        ("Iraq", "Iraq"),
-        ("Ireland", "Ireland"),
-        ("Isle of Man", "Isle of Man"),
-        ("Israel", "Israel"),
-        ("Italy", "Italy"),
-        ("Jamaica", "Jamaica"),
-        ("Japan", "Japan"),
-        ("Jersey", "Jersey"),
-        ("Jordan", "Jordan"),
-        ("Kazakhstan", "Kazakhstan"),
-        ("Kenya", "Kenya"),
-        ("Kiribati", "Kiribati"),
-        (
+        )
+        CG = ("Congo (the)", "Congo (the)")
+        CK = ("Cook Islands (the)", "Cook Islands (the)")
+        CR = ("Costa Rica", "Costa Rica")
+        HR = ("Croatia", "Croatia")
+        CU = ("Cuba", "Cuba")
+        CW = ("Curaçao", "Curaçao")
+        CY = ("Cyprus", "Cyprus")
+        CZ = ("Czechia", "Czechia")
+        CI = ("Côte d'Ivoire", "Côte d'Ivoire")
+        DK = ("Denmark", "Denmark")
+        DJ = ("Djibouti", "Djibouti")
+        DM = ("Dominica", "Dominica")
+        DO = ("Dominican Republic (the)", "Dominican Republic (the)")
+        EC = ("Ecuador", "Ecuador")
+        EG = ("Egypt", "Egypt")
+        SV = ("El Salvador", "El Salvador")
+        GQ = ("Equatorial Guinea", "Equatorial Guinea")
+        ER = ("Eritrea", "Eritrea")
+        EE = ("Estonia", "Estonia")
+        SZ = ("Eswatini", "Eswatini")
+        ET = ("Ethiopia", "Ethiopia")
+        FK = ("Falkland Islands (the) [Malvinas]", "Falkland Islands (the) [Malvinas]")
+        FO = ("Faroe Islands (the)", "Faroe Islands (the)")
+        FJ = ("Fiji", "Fiji")
+        FI = ("Finland", "Finland")
+        FR = ("France", "France")
+        GF = ("French Guiana", "French Guiana")
+        PF = ("French Polynesia", "French Polynesia")
+        TF = ("French Southern Territories (the)", "French Southern Territories (the)")
+        GA = ("Gabon", "Gabon")
+        GM = ("Gambia (the)", "Gambia (the)")
+        GE = ("Georgia", "Georgia")
+        DE = ("Germany", "Germany")
+        GH = ("Ghana", "Ghana")
+        GI = ("Gibraltar", "Gibraltar")
+        GR = ("Greece", "Greece")
+        GL = ("Greenland", "Greenland")
+        GD = ("Grenada", "Grenada")
+        GP = ("Guadeloupe", "Guadeloupe")
+        GU = ("Guam", "Guam")
+        GT = ("Guatemala", "Guatemala")
+        GG = ("Guernsey", "Guernsey")
+        GN = ("Guinea", "Guinea")
+        GW = ("Guinea-Bissau", "Guinea-Bissau")
+        GY = ("Guyana", "Guyana")
+        HT = ("Haiti", "Haiti")
+        HM = ("Heard Island and McDonald Islands", "Heard Island and McDonald Islands")
+        VA = ("Holy See (the)", "Holy See (the)")
+        HN = ("Honduras", "Honduras")
+        HK = ("Hong Kong", "Hong Kong")
+        HU = ("Hungary", "Hungary")
+        IS = ("Iceland", "Iceland")
+        IN = ("India", "India")
+        ID = ("Indonesia", "Indonesia")
+        IR = ("Iran (Islamic Republic of)", "Iran (Islamic Republic of)")
+        IQ = ("Iraq", "Iraq")
+        IE = ("Ireland", "Ireland")
+        IM = ("Isle of Man", "Isle of Man")
+        IL = ("Israel", "Israel")
+        IT = ("Italy", "Italy")
+        JM = ("Jamaica", "Jamaica")
+        JP = ("Japan", "Japan")
+        JE = ("Jersey", "Jersey")
+        JO = ("Jordan", "Jordan")
+        KZ = ("Kazakhstan", "Kazakhstan")
+        KE = ("Kenya", "Kenya")
+        KI = ("Kiribati", "Kiribati")
+        KP = (
             "Korea (the Democratic People's Republic of)",
             "Korea (the Democratic People's Republic of)",
-        ),
-        ("Korea (the Republic of)", "Korea (the Republic of)"),
-        ("Kuwait", "Kuwait"),
-        ("Kyrgyzstan", "Kyrgyzstan"),
-        (
+        )
+        KR = ("Korea (the Republic of)", "Korea (the Republic of)")
+        KW = ("Kuwait", "Kuwait")
+        KG = ("Kyrgyzstan", "Kyrgyzstan")
+        LA = (
             "Lao People's Democratic Republic (the)",
             "Lao People's Democratic Republic (the)",
-        ),
-        ("Latvia", "Latvia"),
-        ("Lebanon", "Lebanon"),
-        ("Lesotho", "Lesotho"),
-        ("Liberia", "Liberia"),
-        ("Libya", "Libya"),
-        ("Liechtenstein", "Liechtenstein"),
-        ("Lithuania", "Lithuania"),
-        ("Luxembourg", "Luxembourg"),
-        ("Macao", "Macao"),
-        ("Madagascar", "Madagascar"),
-        ("Malawi", "Malawi"),
-        ("Malaysia", "Malaysia"),
-        ("Maldives", "Maldives"),
-        ("Mali", "Mali"),
-        ("Malta", "Malta"),
-        ("Marshall Islands (the)", "Marshall Islands (the)"),
-        ("Martinique", "Martinique"),
-        ("Mauritania", "Mauritania"),
-        ("Mauritius", "Mauritius"),
-        ("Mayotte", "Mayotte"),
-        ("Mexico", "Mexico"),
-        ("Micronesia (Federated States of)", "Micronesia (Federated States of)"),
-        ("Moldova (the Republic of)", "Moldova (the Republic of)"),
-        ("Monaco", "Monaco"),
-        ("Mongolia", "Mongolia"),
-        ("Montenegro", "Montenegro"),
-        ("Montserrat", "Montserrat"),
-        ("Morocco", "Morocco"),
-        ("Mozambique", "Mozambique"),
-        ("Myanmar", "Myanmar"),
-        ("Namibia", "Namibia"),
-        ("Nauru", "Nauru"),
-        ("Nepal", "Nepal"),
-        ("Netherlands (the)", "Netherlands (the)"),
-        ("New Caledonia", "New Caledonia"),
-        ("New Zealand", "New Zealand"),
-        ("Nicaragua", "Nicaragua"),
-        ("Niger (the)", "Niger (the)"),
-        ("Nigeria", "Nigeria"),
-        ("Niue", "Niue"),
-        ("Norfolk Island", "Norfolk Island"),
-        ("Northern Mariana Islands (the)", "Northern Mariana Islands (the)"),
-        ("Norway", "Norway"),
-        ("Oman", "Oman"),
-        ("Pakistan", "Pakistan"),
-        ("Palau", "Palau"),
-        ("Palestine, State of", "Palestine, State of"),
-        ("Panama", "Panama"),
-        ("Papua New Guinea", "Papua New Guinea"),
-        ("Paraguay", "Paraguay"),
-        ("Peru", "Peru"),
-        ("Philippines (the)", "Philippines (the)"),
-        ("Pitcairn", "Pitcairn"),
-        ("Poland", "Poland"),
-        ("Portugal", "Portugal"),
-        ("Puerto Rico", "Puerto Rico"),
-        ("Qatar", "Qatar"),
-        ("Republic of North Macedonia", "Republic of North Macedonia"),
-        ("Romania", "Romania"),
-        ("Russian Federation (the)", "Russian Federation (the)"),
-        ("Rwanda", "Rwanda"),
-        ("Réunion", "Réunion"),
-        ("Saint Barthélemy", "Saint Barthélemy"),
-        (
+        )
+        LV = ("Latvia", "Latvia")
+        LB = ("Lebanon", "Lebanon")
+        LS = ("Lesotho", "Lesotho")
+        LR = ("Liberia", "Liberia")
+        LY = ("Libya", "Libya")
+        LI = ("Liechtenstein", "Liechtenstein")
+        LT = ("Lithuania", "Lithuania")
+        LU = ("Luxembourg", "Luxembourg")
+        MO = ("Macao", "Macao")
+        MG = ("Madagascar", "Madagascar")
+        MW = ("Malawi", "Malawi")
+        MY = ("Malaysia", "Malaysia")
+        MV = ("Maldives", "Maldives")
+        ML = ("Mali", "Mali")
+        MT = ("Malta", "Malta")
+        MH = ("Marshall Islands (the)", "Marshall Islands (the)")
+        MQ = ("Martinique", "Martinique")
+        MR = ("Mauritania", "Mauritania")
+        MU = ("Mauritius", "Mauritius")
+        YT = ("Mayotte", "Mayotte")
+        MX = ("Mexico", "Mexico")
+        FM = ("Micronesia (Federated States of)", "Micronesia (Federated States of)")
+        MD = ("Moldova (the Republic of)", "Moldova (the Republic of)")
+        MC = ("Monaco", "Monaco")
+        MN = ("Mongolia", "Mongolia")
+        ME = ("Montenegro", "Montenegro")
+        MS = ("Montserrat", "Montserrat")
+        MA = ("Morocco", "Morocco")
+        MZ = ("Mozambique", "Mozambique")
+        MM = ("Myanmar", "Myanmar")
+        NA = ("Namibia", "Namibia")
+        NR = ("Nauru", "Nauru")
+        NP = ("Nepal", "Nepal")
+        NL = ("Netherlands (the)", "Netherlands (the)")
+        NC = ("New Caledonia", "New Caledonia")
+        NZ = ("New Zealand", "New Zealand")
+        NI = ("Nicaragua", "Nicaragua")
+        NE = ("Niger (the)", "Niger (the)")
+        NG = ("Nigeria", "Nigeria")
+        NU = ("Niue", "Niue")
+        NF = ("Norfolk Island", "Norfolk Island")
+        MP = ("Northern Mariana Islands (the)", "Northern Mariana Islands (the)")
+        NO = ("Norway", "Norway")
+        OM = ("Oman", "Oman")
+        PK = ("Pakistan", "Pakistan")
+        PW = ("Palau", "Palau")
+        PS = ("Palestine, State of", "Palestine, State of")
+        PA = ("Panama", "Panama")
+        PG = ("Papua New Guinea", "Papua New Guinea")
+        PY = ("Paraguay", "Paraguay")
+        PE = ("Peru", "Peru")
+        PH = ("Philippines (the)", "Philippines (the)")
+        PN = ("Pitcairn", "Pitcairn")
+        PL = ("Poland", "Poland")
+        PT = ("Portugal", "Portugal")
+        PR = ("Puerto Rico", "Puerto Rico")
+        QA = ("Qatar", "Qatar")
+        MK = ("Republic of North Macedonia", "Republic of North Macedonia")
+        RO = ("Romania", "Romania")
+        RU = ("Russian Federation (the)", "Russian Federation (the)")
+        RW = ("Rwanda", "Rwanda")
+        RE = ("Réunion", "Réunion")
+        BL = ("Saint Barthélemy", "Saint Barthélemy")
+        SH = (
             "Saint Helena, Ascension and Tristan da Cunha",
             "Saint Helena, Ascension and Tristan da Cunha",
-        ),
-        ("Saint Kitts and Nevis", "Saint Kitts and Nevis"),
-        ("Saint Lucia", "Saint Lucia"),
-        ("Saint Martin (French part)", "Saint Martin (French part)"),
-        ("Saint Pierre and Miquelon", "Saint Pierre and Miquelon"),
-        ("Saint Vincent and the Grenadines", "Saint Vincent and the Grenadines"),
-        ("Samoa", "Samoa"),
-        ("San Marino", "San Marino"),
-        ("Sao Tome and Principe", "Sao Tome and Principe"),
-        ("Saudi Arabia", "Saudi Arabia"),
-        ("Senegal", "Senegal"),
-        ("Serbia", "Serbia"),
-        ("Seychelles", "Seychelles"),
-        ("Sierra Leone", "Sierra Leone"),
-        ("Singapore", "Singapore"),
-        ("Sint Maarten (Dutch part)", "Sint Maarten (Dutch part)"),
-        ("Slovakia", "Slovakia"),
-        ("Slovenia", "Slovenia"),
-        ("Solomon Islands", "Solomon Islands"),
-        ("Somalia", "Somalia"),
-        ("South Africa", "South Africa"),
-        (
+        )
+        KN = ("Saint Kitts and Nevis", "Saint Kitts and Nevis")
+        LC = ("Saint Lucia", "Saint Lucia")
+        MF = ("Saint Martin (French part)", "Saint Martin (French part)")
+        PM = ("Saint Pierre and Miquelon", "Saint Pierre and Miquelon")
+        VC = ("Saint Vincent and the Grenadines", "Saint Vincent and the Grenadines")
+        WS = ("Samoa", "Samoa")
+        SM = ("San Marino", "San Marino")
+        ST = ("Sao Tome and Principe", "Sao Tome and Principe")
+        SA = ("Saudi Arabia", "Saudi Arabia")
+        SN = ("Senegal", "Senegal")
+        RS = ("Serbia", "Serbia")
+        SC = ("Seychelles", "Seychelles")
+        SL = ("Sierra Leone", "Sierra Leone")
+        SG = ("Singapore", "Singapore")
+        SX = ("Sint Maarten (Dutch part)", "Sint Maarten (Dutch part)")
+        SK = ("Slovakia", "Slovakia")
+        SI = ("Slovenia", "Slovenia")
+        SB = ("Solomon Islands", "Solomon Islands")
+        SO = ("Somalia", "Somalia")
+        ZA = ("South Africa", "South Africa")
+        GS = (
             "South Georgia and the South Sandwich Islands",
             "South Georgia and the South Sandwich Islands",
-        ),
-        ("South Sudan", "South Sudan"),
-        ("Spain", "Spain"),
-        ("Sri Lanka", "Sri Lanka"),
-        ("Sudan (the)", "Sudan (the)"),
-        ("Suriname", "Suriname"),
-        ("Svalbard and Jan Mayen", "Svalbard and Jan Mayen"),
-        ("Sweden", "Sweden"),
-        ("Switzerland", "Switzerland"),
-        ("Syrian Arab Republic", "Syrian Arab Republic"),
-        ("Taiwan (Province of China)", "Taiwan (Province of China)"),
-        ("Tajikistan", "Tajikistan"),
-        ("Tanzania, United Republic of", "Tanzania, United Republic of"),
-        ("Thailand", "Thailand"),
-        ("Timor-Leste", "Timor-Leste"),
-        ("Togo", "Togo"),
-        ("Tokelau", "Tokelau"),
-        ("Tonga", "Tonga"),
-        ("Trinidad and Tobago", "Trinidad and Tobago"),
-        ("Tunisia", "Tunisia"),
-        ("Turkey", "Turkey"),
-        ("Turkmenistan", "Turkmenistan"),
-        ("Turks and Caicos Islands (the)", "Turks and Caicos Islands (the)"),
-        ("Tuvalu", "Tuvalu"),
-        ("Uganda", "Uganda"),
-        ("Ukraine", "Ukraine"),
-        ("United Arab Emirates (the)", "United Arab Emirates (the)"),
-        (
+        )
+        SS = ("South Sudan", "South Sudan")
+        ES = ("Spain", "Spain")
+        LK = ("Sri Lanka", "Sri Lanka")
+        SD = ("Sudan (the)", "Sudan (the)")
+        SR = ("Suriname", "Suriname")
+        SJ = ("Svalbard and Jan Mayen", "Svalbard and Jan Mayen")
+        SE = ("Sweden", "Sweden")
+        CH = ("Switzerland", "Switzerland")
+        SY = ("Syrian Arab Republic", "Syrian Arab Republic")
+        TW = ("Taiwan (Province of China)", "Taiwan (Province of China)")
+        TJ = ("Tajikistan", "Tajikistan")
+        TZ = ("Tanzania, United Republic of", "Tanzania, United Republic of")
+        TH = ("Thailand", "Thailand")
+        TL = ("Timor-Leste", "Timor-Leste")
+        TG = ("Togo", "Togo")
+        TK = ("Tokelau", "Tokelau")
+        TO = ("Tonga", "Tonga")
+        TT = ("Trinidad and Tobago", "Trinidad and Tobago")
+        TN = ("Tunisia", "Tunisia")
+        TR = ("Turkey", "Turkey")
+        TM = ("Turkmenistan", "Turkmenistan")
+        TC = ("Turks and Caicos Islands (the)", "Turks and Caicos Islands (the)")
+        TV = ("Tuvalu", "Tuvalu")
+        UG = ("Uganda", "Uganda")
+        UA = ("Ukraine", "Ukraine")
+        AE = ("United Arab Emirates (the)", "United Arab Emirates (the)")
+        GB = (
             "United Kingdom of Great Britain and Northern Ireland (the)",
             "United Kingdom of Great Britain and Northern Ireland (the)",
-        ),
-        (
+        )
+        UM = (
             "United States Minor Outlying Islands (the)",
             "United States Minor Outlying Islands (the)",
-        ),
-        ("United States of America (the)", "United States of America (the)"),
-        ("Uruguay", "Uruguay"),
-        ("Uzbekistan", "Uzbekistan"),
-        ("Vanuatu", "Vanuatu"),
-        (
+        )
+        US = ("United States of America (the)", "United States of America (the)")
+        UY = ("Uruguay", "Uruguay")
+        UZ = ("Uzbekistan", "Uzbekistan")
+        VU = ("Vanuatu", "Vanuatu")
+        VE = (
             "Venezuela (Bolivarian Republic of)",
             "Venezuela (Bolivarian Republic of)",
-        ),
-        ("Viet Nam", "Viet Nam"),
-        ("Virgin Islands (British)", "Virgin Islands (British)"),
-        ("Virgin Islands (U.S.)", "Virgin Islands (U.S.)"),
-        ("Wallis and Futuna", "Wallis and Futuna"),
-        ("Western Sahara", "Western Sahara"),
-        ("Yemen", "Yemen"),
-        ("Zambia", "Zambia"),
-        ("Zimbabwe", "Zimbabwe"),
-        ("Åland Islands", "Åland Islands"),
-    ]
+        )
+        VN = ("Viet Nam", "Viet Nam")
+        VG = ("Virgin Islands (British)", "Virgin Islands (British)")
+        VI = ("Virgin Islands (U.S.)", "Virgin Islands (U.S.)")
+        WF = ("Wallis and Futuna", "Wallis and Futuna")
+        EH = ("Western Sahara", "Western Sahara")
+        YE = ("Yemen", "Yemen")
+        ZM = ("Zambia", "Zambia")
+        ZW = ("Zimbabwe", "Zimbabwe")
+        AX = ("Åland Islands", "Åland Islands")
 
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
-    country = models.CharField(max_length=100, choices=COUNTRIES, blank=True)
+    country = models.CharField(max_length=100, choices=Countries.choices, blank=True)
     mobile_number = models.CharField(max_length=20, blank=True)
