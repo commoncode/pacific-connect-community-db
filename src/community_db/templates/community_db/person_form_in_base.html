@@ -4,7 +4,9 @@
         <br>
         <form method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
+            <table>
+            {{ form.as_ul }}
+            </table>
             <input type="submit">
         </form>
 {% endblock %}
