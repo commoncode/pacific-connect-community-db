@@ -32,23 +32,12 @@ def detail_person_with_template(request, pk):
 def edit_person_with_template(request, pk):
     person = get_object_or_404(Person, id=pk)
     if request.POST:
-        form = PersonForm(request.POST)
+        form = PersonForm(request.POST, instance=person)
         if form.is_valid():
-            person.first_name = form.cleaned_data["first_name"]
-            person.last_name = form.cleaned_data["last_name"]
-            person.country = form.cleaned_data["country"]
-            person.mobile_number = form.cleaned_data["mobile_number"]
-            person.save()
+            form.save()
             return HttpResponseRedirect(reverse("fbv-person-detail", args=[person.id]))
     else:
-        form = PersonForm(
-            {
-                "first_name": person.first_name,
-                "last_name": person.last_name,
-                "country": person.country,
-                "mobile_number": person.mobile_number,
-            }
-        )
+        form = PersonForm(instance=person)
     context = {"object": person, "form": form}
     return render(request, "community_db/person_form_in_base.html", context)
 
