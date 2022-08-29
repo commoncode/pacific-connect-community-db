@@ -43,4 +43,5 @@ urlpatterns = [
         views.PersonUpdateView.as_view(),
         name="cbv-person-edit",
     ),
+    path("accounts/login/", views.UserLoginView.as_view(), name="login"),
 ]

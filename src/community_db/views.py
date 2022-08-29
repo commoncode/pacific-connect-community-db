@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -92,6 +94,7 @@ class PersonUpdateView(UpdateView):
         return reverse("cbv-person-detail", args=[self.object.id])
 
 
+@login_required
 def check_my_auth(request):
     output = ["<html><body>"]
     output.append(f"Is anonymous: {request.user.is_anonymous}")
@@ -99,3 +102,10 @@ def check_my_auth(request):
     output.append(f"Username: {request.user.username}")
     output.append("</body></html>")
     return HttpResponse("<br>".join(output))
+
+
+class UserLoginView(LoginView):
+    template_name = "cbv-login-form.html"
+
+    def get_success_url(self):
+        return reverse("cbv-person-list")
