@@ -2,7 +2,7 @@ from django.db import models
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views.generic import DetailView, ListView
+from django.views.generic import DetailView, ListView, UpdateView
 
 from .forms import PersonForm
 from .models import Person
@@ -81,3 +81,12 @@ class PersonListView(ListView):
 class PersonDetailView(DetailView):
     model = Person
     template_name = "community_db/person_detail_in_base.html"
+
+
+class PersonUpdateView(UpdateView):
+    model = Person
+    fields = ["first_name", "last_name", "country", "mobile_number"]
+    template_name = "community_db/person_form_in_base.html"
+
+    def get_success_url(self):
+        return reverse("cbv-person-detail", args=[self.object.id])

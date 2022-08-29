@@ -37,4 +37,9 @@ urlpatterns = [
         views.PersonDetailView.as_view(),
         name="cbv-person-detail",
     ),
+    path(
+        "cbv/people/<int:pk>/edit/",
+        views.PersonUpdateView.as_view(),
+        name="cbv-person-edit",
+    ),
 ]
