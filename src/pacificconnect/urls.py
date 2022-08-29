@@ -20,6 +20,7 @@ from community_db import views
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("check-my-auth/", views.check_my_auth),
     path("fbv/people/", views.list_persons_with_template, name="fbv-person-list"),
     path(
         "fbv/people/<int:pk>/",
