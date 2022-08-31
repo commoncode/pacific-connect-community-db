@@ -10,5 +10,4 @@ class QuickSearchForm(forms.Form):
 class PersonForm(forms.ModelForm):
     class Meta:
         model = Person
-        # fields = ["first_name", "last_name", "country", "mobile_number"]
-        exclude = []
+        fields = ["first_name", "last_name", "country", "mobile_number"]

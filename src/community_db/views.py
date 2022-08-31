@@ -1,5 +1,5 @@
-from django.contrib.auth.decorators import permission_required
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import LoginView, redirect_to_login
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -31,9 +31,13 @@ def detail_person_with_template(request, pk):
     return render(request, "community_db/person_detail_in_base.html", context)
 
 
-@permission_required("edit_profile")
+@login_required
 def edit_person_with_template(request, pk):
     person = get_object_or_404(Person, id=pk)
+
+    if person.user != request.user:
+        return redirect_to_login(request.path)
+
     if request.POST:
         form = PersonForm(request.POST, instance=person)
         if form.is_valid():
