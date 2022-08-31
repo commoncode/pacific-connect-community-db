@@ -35,7 +35,7 @@ def detail_person_with_template(request, pk):
 def edit_person_with_template(request, pk):
     person = get_object_or_404(Person, id=pk)
 
-    if person.user != request.user:
+    if not person.users.contains(request.user):
         return redirect_to_login(request.path)
 
     if request.POST:
