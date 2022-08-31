@@ -284,3 +284,8 @@ class Person(models.Model):
     last_name = models.CharField(max_length=100)
     country = models.CharField(max_length=100, choices=Countries.choices, blank=True)
     mobile_number = models.CharField(max_length=20, blank=True)
+
+    class Meta:
+        permissions = [
+            ("edit_profile", "Can edit a profile"),
+        ]

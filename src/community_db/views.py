@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.views import LoginView
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
@@ -31,6 +31,7 @@ def detail_person_with_template(request, pk):
     return render(request, "community_db/person_detail_in_base.html", context)
 
 
+@permission_required("edit_profile")
 def edit_person_with_template(request, pk):
     person = get_object_or_404(Person, id=pk)
     if request.POST:
@@ -94,7 +95,6 @@ class PersonUpdateView(UpdateView):
         return reverse("cbv-person-detail", args=[self.object.id])
 
 
-@login_required
 def check_my_auth(request):
     output = ["<html><body>"]
     output.append(f"Is anonymous: {request.user.is_anonymous}")
@@ -107,5 +107,5 @@ def check_my_auth(request):
 class UserLoginView(LoginView):
     template_name = "cbv-login-form.html"
 
-    def get_success_url(self):
+    def get_default_success_url(self):
         return reverse("cbv-person-list")
