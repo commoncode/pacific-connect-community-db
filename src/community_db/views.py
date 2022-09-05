@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.views import LoginView, redirect_to_login
 from django.db import models
 from django.http import HttpResponse, HttpResponseRedirect
@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 from django.views.generic import DetailView, ListView, UpdateView
 
-from .forms import PersonForm
+from .forms import PersonForm, PersonSearchForm
 from .models import Person
 
 # FUNCTION BASED VIEWS
@@ -47,6 +47,48 @@ def edit_person_with_template(request, pk):
         form = PersonForm(instance=person)
     context = {"object": person, "form": form}
     return render(request, "community_db/person_form_in_base.html", context)
+
+
+def search_persons_with_template_AND(request):
+    search_form = PersonSearchForm(request.GET)
+
+    persons = Person.objects.all()
+    search_form.is_valid()
+    cleaned_data = search_form.cleaned_data
+    if cleaned_data.get("first_name"):
+        persons = persons.filter(first_name__icontains=cleaned_data["first_name"])
+    if cleaned_data.get("last_name"):
+        persons = persons.filter(last_name__icontains=cleaned_data["last_name"])
+    if cleaned_data.get("country"):
+        persons = persons.filter(country=cleaned_data["country"])
+    if cleaned_data["mobile_number"]:
+        persons = persons.filter(mobile_number__icontains=cleaned_data["mobile_number"])
+
+    context = {"object_list": persons, "form": search_form}
+    return render(request, "community_db/person_search_form.html", context)
+
+
+def search_persons_with_template_OR(request):
+    search_form = PersonSearchForm(request.GET)
+
+    search_form.is_valid()
+    cleaned_data = search_form.cleaned_data
+    search_filters = models.Q()
+    if cleaned_data.get("first_name"):
+        search_filters &= models.Q(first_name__icontains=cleaned_data["first_name"])
+    if cleaned_data.get("last_name"):
+        search_filters &= models.Q(last_name__icontains=cleaned_data["last_name"])
+    if cleaned_data.get("country"):
+        search_filters &= models.Q(country=cleaned_data["country"])
+    if cleaned_data["mobile_number"]:
+        search_filters &= models.Q(
+            mobile_number__icontains=cleaned_data["mobile_number"]
+        )
+
+    persons = Person.objects.filter(search_filters)
+
+    context = {"object_list": persons, "form": search_form}
+    return render(request, "community_db/person_search_form.html", context)
 
 
 # CLASS BASED VIEWS

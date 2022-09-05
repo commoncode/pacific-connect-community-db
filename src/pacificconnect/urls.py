@@ -32,6 +32,11 @@ urlpatterns = [
         views.edit_person_with_template,
         name="fbv-person-edit",
     ),
+    path(
+        "fbv/people/search/",
+        views.search_persons_with_template_AND,
+        name="fbv-person-search",
+    ),
     path("cbv/people/", views.PersonListView.as_view(), name="cbv-person-list"),
     path(
         "cbv/people/<int:pk>/",
