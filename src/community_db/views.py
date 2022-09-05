@@ -64,6 +64,10 @@ def search_persons_with_template_AND(request):
     if cleaned_data["mobile_number"]:
         persons = persons.filter(mobile_number__icontains=cleaned_data["mobile_number"])
 
+    allowed_sort_options = ("first_name", "last_name", "country", "mobile_number")
+    if cleaned_data.get("sort_by") in allowed_sort_options:
+        persons = persons.order_by(cleaned_data["sort_by"])
+
     context = {"object_list": persons, "form": search_form}
     return render(request, "community_db/person_search_form.html", context)
 
