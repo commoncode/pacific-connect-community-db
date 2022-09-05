@@ -7,18 +7,5 @@
             <input type="submit">
         </form>
         
-    {% if object_list %}
-        This is my list of folks
-        <ul>
-            {% for person in object_list %}
-                <li>
-                    <a href="{% url 'fbv-person-detail' person.id %}">
-                        {{ person.first_name }} {{ person.last_name }}
-                    </a> from {{ person.country }}
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        No profiles match that search
-    {% endif %}
+        {% include "./person_list_part.html" %}
 {% endblock %}
