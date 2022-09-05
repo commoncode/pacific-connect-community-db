@@ -50,25 +50,37 @@ def edit_person_with_template(request, pk):
 
 
 def search_persons_with_template_AND(request):
-    search_form = PersonSearchForm(request.GET)
+    if request.GET:
+        search_form = PersonSearchForm(request.GET)
+        show_results = True
 
-    persons = Person.objects.all()
-    search_form.is_valid()
-    cleaned_data = search_form.cleaned_data
-    if cleaned_data.get("first_name"):
-        persons = persons.filter(first_name__icontains=cleaned_data["first_name"])
-    if cleaned_data.get("last_name"):
-        persons = persons.filter(last_name__icontains=cleaned_data["last_name"])
-    if cleaned_data.get("country"):
-        persons = persons.filter(country=cleaned_data["country"])
-    if cleaned_data["mobile_number"]:
-        persons = persons.filter(mobile_number__icontains=cleaned_data["mobile_number"])
+        persons = Person.objects.all()
+        search_form.is_valid()
+        cleaned_data = search_form.cleaned_data
+        if cleaned_data.get("first_name"):
+            persons = persons.filter(first_name__icontains=cleaned_data["first_name"])
+        if cleaned_data.get("last_name"):
+            persons = persons.filter(last_name__icontains=cleaned_data["last_name"])
+        if cleaned_data.get("country"):
+            persons = persons.filter(country=cleaned_data["country"])
+        if cleaned_data["mobile_number"]:
+            persons = persons.filter(
+                mobile_number__icontains=cleaned_data["mobile_number"]
+            )
 
-    allowed_sort_options = ("first_name", "last_name", "country", "mobile_number")
-    if cleaned_data.get("sort_by") in allowed_sort_options:
-        persons = persons.order_by(cleaned_data["sort_by"])
+        allowed_sort_options = ("first_name", "last_name", "country", "mobile_number")
+        if cleaned_data.get("sort_by") in allowed_sort_options:
+            persons = persons.order_by(cleaned_data["sort_by"])
+    else:
+        search_form = PersonSearchForm()
+        show_results = False
+        persons = Person.objects.none()
 
-    context = {"object_list": persons, "form": search_form}
+    context = {
+        "object_list": persons,
+        "form": search_form,
+        "show_results": show_results,
+    }
     return render(request, "community_db/person_search_form.html", context)
 
 

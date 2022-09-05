@@ -7,5 +7,7 @@
             <input type="submit">
         </form>
 
-        {% include "./person_list_part_advanced_search.html" %}
+        {% if show_results %}
+            {% include "./person_list_part_advanced_search.html" %}
+        {% endif %}
 {% endblock %}
