@@ -285,6 +285,7 @@ class Person(models.Model):
     last_name = models.CharField(max_length=100)
     country = models.CharField(max_length=100, choices=Countries.choices, blank=True)
     mobile_number = models.CharField(max_length=20, blank=True)
+    favourite_project = models.CharField(max_length=200, blank=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
     class Meta:
