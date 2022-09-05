@@ -1,14 +1,18 @@
 {% if object_list %}
-{{ list_message }}
-<ul>
-    {% for person in object_list %}
-        <li>
-            <a href="{% url 'fbv-person-detail' person.id %}">
-                {{ person.first_name }} {{ person.last_name }}
-            </a> from {{ person.country }}
-        </li>
-    {% endfor %}
-</ul>
+    {% block person_list_heading %}
+    This is my list of folks
+    {% endblock %}
+    <ul>
+        {% for person in object_list %}
+            <li>
+                <a href="{% url 'fbv-person-detail' person.id %}">
+                    {{ person.first_name }} {{ person.last_name }}
+                </a> from {{ person.country }}
+            </li>
+        {% endfor %}
+    </ul>
 {% else %}
-{{ empty_message }}
+    {% block empty_message %}
+    No profiles match that search
+    {% endblock %}
 {% endif %}
