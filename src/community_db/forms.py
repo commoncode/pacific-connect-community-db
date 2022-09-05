@@ -16,5 +16,5 @@ class PersonForm(forms.ModelForm):
 class PersonSearchForm(forms.Form):
     first_name = forms.CharField(max_length=100, required=False)
     last_name = forms.CharField(max_length=100, required=False)
-    country = forms.CharField(max_length=100, required=False)
+    country = forms.ChoiceField(required=False, choices=Person.Countries.choices)
     mobile_number = forms.CharField(max_length=20, required=False)
