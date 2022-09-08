@@ -6,3 +6,5 @@ class Person(models.Model):
     last_name = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
     mobile_number = models.CharField(max_length=20, blank=True)
+
+    # another change, but on a different branch
