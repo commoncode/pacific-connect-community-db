@@ -7,4 +7,6 @@ class Person(models.Model):
     country = models.CharField(max_length=100, blank=True)
     mobile_number = models.CharField(max_length=20, blank=True)
 
-    # another change, but on a different branch
+    # another change, but on a different branch <- this change was made on `my-branch`
+    # now this change is being made on `my-branch-inner-1`
+    # and another change
