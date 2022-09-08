@@ -9,3 +9,4 @@ class Person(models.Model):
 
     # another change, but on a different branch <- this change was made on `my-branch`
     # now this change is being made on `my-branch-inner-1`
+    # and another change
