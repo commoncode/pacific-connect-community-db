@@ -16,6 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from community_db import views
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("myview", views.list_persons),
+    path("myview-with-template/", views.list_persons_with_template),
+    path("person-list/", views.PersonListView.as_view()),
 ]
