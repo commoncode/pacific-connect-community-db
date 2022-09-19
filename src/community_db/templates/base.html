@@ -1,0 +1,19 @@
+<html>
+
+<body>
+    <h1>Welcome to the Pacific Connect Community Database</h1>
+    On this site, you can find details of members of the Pacific Connect Community Database
+    <br>
+    <form action="{% url "fbv-person-list" %}">
+        <label for="id-search">Search:</label>
+        <input type="text" name="search" id="id-search">
+        <input type="submit">
+    </form>
+    {% if search_text %}
+        Search results for: {{ search_text }}
+    {% endif %}
+    <br>
+    {% block content %}{% endblock %}
+</body>
+
+</html>
