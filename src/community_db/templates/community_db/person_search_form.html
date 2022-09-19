@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+        <br>
+        <form method="GET">
+            {{ form.as_p }}
+            <input type="submit">
+        </form>
+
+        {% if show_results %}
+            {% include "./person_list_part_advanced_search.html" %}
+        {% endif %}
+{% endblock %}
